@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Curso>
+@{
+    ViewData["Title"] = "Informacion de los cursos";
+  
+}
+
+<h1>@ViewData["Title"]</h1>
+<h3>Total de cursos en la escuela: @Model.Count()</h3>
+<partial name="ListaObjetoEscuelaSimple" />

@@ -1,0 +1,19 @@
+﻿@model Curso
+@{
+    ViewData["Title"] = "Informacion de Curso";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (ViewBag.mensajeExtra != null)
+{
+<div class="alert @ViewBag.alert" role="alert">
+    @ViewBag.mensajeExtra
+</div>
+}
+
+<h2>Nombre: @Model.Nombre</h2>
+<p><i>Id: @Model.Id</i></p>
+
+
+<a  asp-area="" asp-controller="Curso" asp-action="Index">Todos los Cursos</a>
+

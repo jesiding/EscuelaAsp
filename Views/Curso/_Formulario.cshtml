@@ -1,0 +1,40 @@
+﻿@model Curso
+@{
+  ViewData["Title"] = "Informacion de Curso";
+
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div asp-validation-summary="All"></div>
+<form method="POST" >
+  <div class="form-row">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group col-md-6">
+      <label for="nombre" asp-for="Nombre">Nombre</label>
+      <input type="text" class="form-control" id="Nombre" name="Nombre" asp-for="Nombre" data-val="true" data-val-required="Please enter the name." >
+        <span class="field-validation-valid text-danger" data-valmsg-for="Nombre" data-valmsg-replace="true" ></span>
+    </div>
+    <div class="form-group col-md-6">
+      <label class="my-1 mr-2" for="jornada" asp-for="Jornada">Jornada</label>
+      @*Con este comando lleno un select es un tag de netcore el cual traigo de una enumeracion*@
+      @Html.DropDownList(
+      "Jornada",Html.GetEnumSelectList<TiposJornada>(),
+      "Seleccione Jornada",
+      new {@class="form-control"}
+      )
+      <span class="text-danger" asp-validation-for="Jornada"></span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="direccion" asp-for="Dirección"></label>
+    <input type="text" class="form-control" name="Dirección" id="Dirección" asp-for="Dirección" data-val="true" data-val-required="Please enter descripcion" >
+    <span class="field-validation-valid text-danger"  data-valmsg-for="Dirección" data-valmsg-replace="true"></span>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+<div class="container text-right">
+  <a asp-area="" asp-controller="Curso" asp-action="Index">Todos los Cursos</a>
+</div>

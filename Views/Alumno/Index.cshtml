@@ -1,0 +1,18 @@
+﻿@model Alumno
+@{
+    ViewData["Title"] = "Informacion de Alumno";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (ViewBag.mensajeExtra != null)
+{
+<div class="alert @ViewBag.alert" role="alert">
+    @ViewBag.mensajeExtra
+</div>
+}
+<h2>Nombre: @Model.Nombre</h2>
+<p><i>Id: @Model.Id</i></p>
+
+
+<a  asp-area="" asp-controller="Alumno" asp-action="MultiAlumnos">Todos los Alumnos</a>
+

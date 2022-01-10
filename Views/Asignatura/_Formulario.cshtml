@@ -1,0 +1,35 @@
+﻿@model Asignatura
+@{
+  ViewData["Title"] = "Informacion de Asignatura";
+  var listacursos=(List<SelectListItem>) ViewBag.listaCursos;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+  <div class="form-row">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group col-md-6">
+      <label for="nombre" asp-for="Nombre">Nombre</label>
+      <input type="text" class="form-control" id="Nombre" name="Nombre" asp-for="Nombre" data-val="true" data-val-required="Please enter the name.">
+      <span class="field-validation-valid text-danger" data-valmsg-for="Nombre" data-valmsg-replace="true"></span>
+    </div>
+     <div class="form-group col-md-6">
+     <label class="my-1 mr-2" for="Curso" asp-for="CursoId">Curso</label>
+      @*Con este comando lleno un select es un tag de netcore el cual traigo de una enumeracion*@
+      @Html.DropDownList(
+        "CursoId", listacursos,
+          "Seleccione Curso",
+          new {@class="form-control"}
+      )
+      <span asp-validation-for="CursoId" class="text-danger"></span>
+    </div>
+  </div>
+ 
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+<div class="container text-right">
+  <a asp-area="" asp-controller="Asignatura" asp-action="Index">Todos las asignaturas</a>
+</div>
