@@ -22,16 +22,22 @@ namespace AspNetCore.Controllers
                 var asignatura = from asig in _context.Asignaturas
                                  where asig.Id == asignaturaId
                                  select asig;
-                return View(asignatura.SingleOrDefault());
+                   if(asignatura.SingleOrDefault()!=null)                   
+                         return View(asignatura.SingleOrDefault());
+
+                    return MultiAsignaturas();
             }
             else
             {
-                ViewBag.controller = "Asignatura";
-                ViewBag.actionEditar = "Editar";
-                return View("MultiAsignatura", _context.Asignaturas);
+                return MultiAsignaturas();
             }
         }
         public IActionResult MultiAsignatura()
+        {
+            return MultiAsignaturas();
+        }
+
+        private IActionResult MultiAsignaturas()
         {
             ViewBag.Fecha = DateTime.Now;
             ViewBag.controller = "Asignatura";
@@ -43,7 +49,7 @@ namespace AspNetCore.Controllers
         {
 
             ViewBag.Fecha = DateTime.Now;
-            List<SelectListItem> listaCursos = SharedLoad.CargarSelectListCursos(_context);
+            List<SelectListItem> listaCursos = SharedLoad.CargarSelectList(_context.Cursos.ToList());
             ViewData["listaCursos"] = listaCursos;
 
             return View();
@@ -81,9 +87,12 @@ namespace AspNetCore.Controllers
                              where cur.Id == asignaturaId
                              select cur;
             ViewBag.Fecha = DateTime.Now;
-            List<SelectListItem> listaCursos = SharedLoad.CargarSelectListCursos(_context);
+            List<SelectListItem> listaCursos = SharedLoad.CargarSelectList(_context.Cursos.ToList());
             ViewData["listaCursos"] = listaCursos;
-            return View(asignatura.FirstOrDefault());
+             if(asignatura.SingleOrDefault()!=null)
+                    return View(asignatura.FirstOrDefault());
+
+            return RedirectToAction("Create");
 
         }
 
@@ -113,6 +122,7 @@ namespace AspNetCore.Controllers
         public IActionResult Eliminar(string asignaturaId)
         {
             var asignatura = _context.Asignaturas.Where(d => d.Id == asignaturaId).FirstOrDefault();
+            if(asignatura!=null){
             ViewBag.Fecha = DateTime.Now;
             _context.Entry(asignatura).State = EntityState.Deleted;
             _context.SaveChanges();
@@ -120,6 +130,8 @@ namespace AspNetCore.Controllers
             ViewBag.mensajeExtra = "Asignatura eliminado exitosamente";
 
             return View("Index", asignatura);
+            }else
+                 return RedirectToAction("MultiAsignatura");
 
         }
 

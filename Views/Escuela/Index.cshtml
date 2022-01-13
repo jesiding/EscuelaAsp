@@ -2,13 +2,16 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<h1>Escuela</h1>
-<h2>Nombre: @Model.Nombre</h2>
-<h3>Tipo de Escuela: @Model.TipoEscuela</h3>
-<address>
-    <p>Direccion: @Model.Dirección</p>
-    <p>Pais: @Model.Pais</p>
-    <p>Ciudad: @Model.Ciudad</p>
-</address>
-<p><strong>Año de Fundacion: @Model.AñoDeCreación</strong></p>
+<div class="mt-5" >
+    <div class="p2 bd-highlight">
+        <h1>Escuela</h1>
+        <h2>Nombre: @Model.Nombre</h2>
+        <h3>Tipo de Escuela: @Model.TipoEscuela</h3>
+        <address>
+            <p>Direccion: @Model.Dirección</p>
+            <p>Pais: @Model.Pais</p>
+            <p>Ciudad: @Model.Ciudad</p>
+        </address>
+        <p><strong>Año de Fundacion: @Model.AñoDeCreación</strong></p>
+    </div>
+</div>

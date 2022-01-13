@@ -23,17 +23,23 @@ namespace AspNetCore.Controllers
                 var alumno = from alum in _context.Alumnos
                              where alum.Id == alumnoId
                              select alum;
-                return View(alumno.SingleOrDefault());
+                if(alumno.SingleOrDefault()!=null)             
+                    return View(alumno.SingleOrDefault());
+
+                return MultiAlumno();
             }
             else
             {
-                ViewBag.controller = "Alumno";
-                ViewBag.actionEditar = "Editar";
-                return View("MultiAlumno", _context.Alumnos);
+               return  MultiAlumno();
             }
         }
 
         public IActionResult MultiAlumnos()
+        {
+            return MultiAlumno();
+        }
+
+        private IActionResult MultiAlumno()
         {
             var listaAlumnos = _context.Alumnos;
             ViewBag.controller = "Alumno";
@@ -45,7 +51,7 @@ namespace AspNetCore.Controllers
         {
 
             ViewBag.Fecha = DateTime.Now;
-            List<SelectListItem> listaCursos = SharedLoad.CargarSelectListCursos(_context);
+            List<SelectListItem> listaCursos = SharedLoad.CargarSelectList(_context.Cursos.ToList());
             ViewData["listaCursos"] = listaCursos;
 
             return View();
@@ -83,10 +89,12 @@ namespace AspNetCore.Controllers
                          where cur.Id == alumnoId
                          select cur;
             ViewBag.Fecha = DateTime.Now;
-            List<SelectListItem> listaCursos = SharedLoad.CargarSelectListCursos(_context);
+            List<SelectListItem> listaCursos = SharedLoad.CargarSelectList(_context.Cursos.ToList());
             ViewData["listaCursos"] = listaCursos;
-            return View(alumno.FirstOrDefault());
-
+            if(alumno.SingleOrDefault()!=null)
+                return View(alumno.FirstOrDefault());
+            
+            return RedirectToAction("Create");
         }
 
         [HttpPost]
@@ -116,14 +124,16 @@ namespace AspNetCore.Controllers
         public IActionResult Eliminar(string alumnoId)
         {
             var alumno = _context.Alumnos.Where(d => d.Id == alumnoId).FirstOrDefault();
-            ViewBag.Fecha = DateTime.Now;
+            if(alumno!=null)
+            {ViewBag.Fecha = DateTime.Now;
             _context.Entry(alumno).State = EntityState.Deleted;
             _context.SaveChanges();
             ViewBag.alert="alert-danger";
             ViewBag.mensajeExtra = "Alumno eliminado exitosamente";
 
             return View("Index", alumno);
-
+            }else
+                return RedirectToAction("MultiAlumnos");
         }
         
 

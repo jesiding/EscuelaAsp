@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 namespace AspNetCore.Models
 {
     public static class SharedLoad
@@ -12,9 +15,10 @@ namespace AspNetCore.Models
         /// </summary>
         /// <param name="_context"></param>
         /// <returns></returns>
-        public static List<SelectListItem> CargarSelectListCursos(EscuelaContext _context)
+        public static List<SelectListItem> CargarSelectList(IEnumerable<ObjetoEscuelaBase> lista)
         {
-            return _context.Cursos.ToList().ConvertAll(d =>
+          
+            return lista.ToList().ConvertAll(d =>
             {
                 return new SelectListItem()
                 {
@@ -24,6 +28,8 @@ namespace AspNetCore.Models
                 };
             });
         }
-    }
 
+        
+     
+    }
 }

@@ -14412,6 +14412,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Evaluación\\Editar.cshtml",
+      "TargetPath": "Views\\Evaluación\\Editar.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Shared\\ObjetoEscuelaSimple.cshtml",
       "TargetPath": "Views\\Shared\\ObjetoEscuelaSimple.cshtml",
       "FileKind": "mvc"
@@ -14439,6 +14444,16 @@
     {
       "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Asignatura\\Create.cshtml",
       "TargetPath": "Views\\Asignatura\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Evaluación\\MultiEvaluacion.cshtml",
+      "TargetPath": "Views\\Evaluación\\MultiEvaluacion.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Evaluación\\Index.cshtml",
+      "TargetPath": "Views\\Evaluación\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14487,8 +14502,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Evaluación\\_Formulario.cshtml",
+      "TargetPath": "Views\\Evaluación\\_Formulario.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\DEVELOPER-01\\platzi\\AspNetCore\\Views\\Evaluación\\Create.cshtml",
+      "TargetPath": "Views\\Evaluación\\Create.cshtml",
       "FileKind": "mvc"
     },
     {

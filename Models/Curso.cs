@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AspNetCore.Models
 {
-    public class Curso:ObjetoEscuelaBase
-    {
+    public class Curso:ObjetoEscuelaBase 
+        {
         [Required(ErrorMessage ="El nombre del curso es requerido")]
         [StringLength(5)]// tamaño maximo
         public override string Nombre { get; set; }
@@ -28,11 +28,7 @@ namespace AspNetCore.Models
         //Se crea la propiedad que tiene como tipo de dato el objeto completo de la entidad relacionada
         public Escuela Escuela { get; set; }
 
-        // public override string ToString()
-        // {
-        //     return  $"{Nombre}";
-        // }
-        
+     
         
         
         

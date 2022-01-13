@@ -23,33 +23,32 @@ namespace AspNetCore.Controllers
                 var curso = from cur in _context.Cursos
                             where cur.Id == cursoId
                             select cur;
-                return View(curso.SingleOrDefault());
+                if (curso.SingleOrDefault() != null)
+                    return View(curso.SingleOrDefault());
+                return MultiCursos();
             }
             else
             {
-                ViewBag.controller = "Curso";
-                ViewBag.actionEditar = "Editar";
-                return View("MultiCurso", _context.Cursos);
+                return MultiCursos();
             }
         }
 
         public IActionResult MultiCurso()
         {
+            return MultiCursos();
+        }
+
+        private IActionResult MultiCursos()
+        {
             var listaCursos = _context.Cursos;
             ViewBag.controller = "Curso";
-            
             return View("MultiCurso", listaCursos);
         }
 
-
-
         public IActionResult Create()
         {
-
             ViewBag.Fecha = DateTime.Now;
-
             return View();
-
         }
 
         [HttpPost]
@@ -57,17 +56,16 @@ namespace AspNetCore.Controllers
         {
             ViewBag.Fecha = DateTime.Now;
             if (ModelState.IsValid)
-            {   
-                if(curso.Id ==null){
+            {
+                if (curso.Id == null)
+                {
                     curso.Id = Guid.NewGuid().ToString();
                 }
                 var escuela = _context.Escuelas.FirstOrDefault();
-
                 curso.EscuelaId = escuela.Id;
-
                 _context.Cursos.Add(curso);
                 _context.SaveChanges();
-                ViewBag.alert="alert-success";
+                ViewBag.alert = "alert-success";
                 ViewBag.mensajeExtra = "Curso creado exitosamente";
                 return View("Index", curso);
             }
@@ -75,19 +73,19 @@ namespace AspNetCore.Controllers
             {
                 return View(curso);
             }
-
         }
 
         [Route("Curso/Editar/{cursoId}")] //con este enrutamiento determino los parametros que necesita para funcionar este metodo
         public IActionResult Editar(string cursoId)
         {
             var curso = from cur in _context.Cursos
-                            where cur.Id == cursoId
-                            select cur;
+                        where cur.Id == cursoId
+                        select cur;
             ViewBag.Fecha = DateTime.Now;
+            if (curso.SingleOrDefault() != null)
+                return View(curso.FirstOrDefault());
 
-            return View(curso.FirstOrDefault());
-
+            return RedirectToAction("Create");
         }
 
         [HttpPost]
@@ -96,44 +94,38 @@ namespace AspNetCore.Controllers
         {
             if (ModelState.IsValid)
             {
-               _context.Entry(curs).State =EntityState.Modified;
+                _context.Entry(curs).State = EntityState.Modified;
                 _context.SaveChanges();
-                ViewBag.alert="alert-success";
+                ViewBag.alert = "alert-success";
                 ViewBag.mensajeExtra = "Curso editado exitosamente";
-                return View("Index",curs);
+                return View("Index", curs);
             }
             else
             {
                 return View(curs);
             }
-
-
-            
-
         }
 
-         [Route("Curso/Eliminar/{cursoId}")] //con este enrutamiento determino los parametros que necesita para funcionar este metodo
+        [Route("Curso/Eliminar/{cursoId}")] //con este enrutamiento determino los parametros que necesita para funcionar este metodo
         public IActionResult Eliminar(string cursoId)
         {
-            var curso =  _context.Cursos.Where(d => d.Id==cursoId).FirstOrDefault();
-            ViewBag.Fecha = DateTime.Now;
-            _context.Entry(curso).State =EntityState.Deleted;
-             _context.SaveChanges();
-             ViewBag.alert="alert-danger";
-             ViewBag.mensajeExtra = "Curso eliminado exitosamente";  
-
-            return View("Index",curso);
-
+            var curso = _context.Cursos.Where(d => d.Id == cursoId).FirstOrDefault();
+            if (curso != null)
+            {
+                ViewBag.Fecha = DateTime.Now;
+                _context.Entry(curso).State = EntityState.Deleted;
+                _context.SaveChanges();
+                ViewBag.alert = "alert-danger";
+                ViewBag.mensajeExtra = "Curso eliminado exitosamente";
+                return View("Index", curso);
+            }else
+                return RedirectToAction("MultiCurso");
+         
         }
-
-
-
 
         public CursoController(EscuelaContext context)
         {
             _context = context;
         }
-
-
     }
 }
